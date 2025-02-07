@@ -1,0 +1,173 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+header nav {
+    display: flex;
+    justify-content: flex-end;  /* Alignement des liens à droite */
+    flex-grow: 1;  /* Prend toute la largeur restante */
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+header nav a:hover {
+    background-color: #45a049;  /* Changement de fond au survol */
+}
+
+.container {
+    padding: 20px;
+}
+
+.boutique {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  /* 4 produits par ligne */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.produit {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 15px;  /* Réduction du padding */
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: auto;  /* Adaptation automatique à la hauteur du contenu */
+}
+
+.produit img {
+    width: 135px;
+    height: 150px;  /* Fixer une hauteur pour limiter la taille de l'image */
+    object-fit: cover;  /* Maintient le ratio tout en remplissant la boîte */
+}
+
+.produit h3 {
+    margin: 5px 0 8px;  /* Réduction des marges */
+    font-size: 1.2rem;
+}
+
+.produit p {
+    font-size: 0.85rem;  /* Réduction de la taille de la police */
+    color: #666;
+    margin-bottom: 5px;  /* Réduction de l'espacement entre les paragraphes */
+}
+
+.produit a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.produit a:hover {
+    text-decoration: underline;
+}
+
+.ajouter-produit {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.ajouter-produit:hover {
+    background-color: #45a049;
+}
+
+.logo {
+    width: 50px;  /* Ajustez la taille du logo selon vos besoins */
+    height: 50px; /* Assurez-vous que la largeur et la hauteur soient égales pour un cercle parfait */
+    border-radius: 50%;
+    object-fit: cover; /* Garantit que l'image remplit le cercle sans déformation */
+    margin-right: 10px; /* Espace entre l'image et le titre */
+}
+.mesannonces-btn {
+    background-color:rgb(255, 255, 255);
+    color: #45a049;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.mesannonces-btn:hover {
+    background-color: #45a049;
+    color : rgb(255, 255, 255);
+}
+.deconnexion-btn {
+    background-color:rgb(255, 75, 75);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.deconnexion-btn:hover {
+    background-color:rgb(255, 4, 0);
+}
+.nonconnecter-btn {
+    background-color:rgb(255, 255, 255);
+    color: #45a049;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.nonconnecter-btn:hover{
+    background-color: #45a049;
+    color : rgb(255, 255, 255);
+}
+.compteur-images {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.produit-images {
+    position: relative;
+}

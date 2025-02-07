@@ -1,0 +1,92 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrocTout - Accueil</title>
+    <link rel="stylesheet" href="{{ asset('styles/Accueil.css') }}">
+
+</head>
+<body>
+   <header>
+
+        <img src="{{ asset('/images/logo.png') }}" alt="Logo" class="logo">
+        <h1>TrocTout</h1>
+        <nav>
+            {% if app.session.get('user_prenom') %}
+                <a href="{{ path('user_mes_articles') }}" class="mesannonces-btn">Mes Annonces</a>
+            {% endif %}
+
+            {% if app.session.get('user_prenom') %}
+                <a href="{{ path('user_logout') }}" class="deconnexion-btn">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_index') }}" class="nonconnecter-btn">Connexion/Inscription</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>
+            {% if app.session.get('user_prenom') %}
+                {{ app.session.get('user_prenom') }} Bienvenue sur TrocTout !
+            {% else %}
+                Bienvenue sur TrocTout !
+            {% endif %}
+        </h2>
+
+        <p>
+            {% if app.session.get('user_prenom') %}
+                Bonjour {{ app.session.get('user_prenom') }} {{ app.session.get('user_nom') }},
+                découvrez des produits de seconde main et mettez les vôtres en ligne facilement.
+            {% else %}
+                Bonjour,
+                découvrez des produits de seconde main sur ce site.
+            {% endif %}
+        </p>
+        <div class="boutique">
+            {% for annonceData in annoncesWithImages %}
+                <div class="produit">
+                    {# Vérification si des images existent pour cette annonce #}
+                    {% if annonceData.images is not empty %}
+                        <div class="produit-images">
+                            {# Si plus d'une image, afficher un compteur des images restantes #}
+                            {% if annonceData.images|length > 1 %}
+                                <div class="compteur-images">
+                                    <span>{{ annonceData.images|length - 1 }} autre(s) photo(s)</span>
+                                </div>
+                            {% endif %}
+                            
+                            {# Affichage de la première image pour l'annonce #}
+                            <img src="{{ asset('uploads/images/' ~ annonceData.images[0].chemin) }}" alt="{{ annonceData.annonce.titre }}" class="produit-image" />
+                        </div>
+                    {% else %}
+                        <p>Aucune image disponible pour cette annonce.</p>
+                    {% endif %}
+
+                    <h3>{{ annonceData.annonce.titre }}</h3>
+                    <p>Catégorie : {{ annonceData.categorie.nom }}</p>
+                    <p>{{ annonceData.annonce.description }}</p>
+                    <p>Prix : {{ annonceData.annonce.prix }} €</p>
+                    <p>Localisation : {{ annonceData.annonce.localisation }}</p>
+                    <p>Date d'ajout : {{ annonceData.annonce.dateAjout|date('d/m/Y') }}</p>
+                    <p>Mise en ligne par : 
+                        {% if annonceData.ajouter is not null %}
+                            {{ annonceData.ajouter.nom }} {{ annonceData.ajouter.prenom }}
+                        {% else %}
+                            Anonyme
+                        {% endif %}
+                    </p>
+                                        
+                    {# Lien pour voir plus de détails sur l'annonce #}
+                    <a>Cliquez pour voir + en détail</a>
+                </div>
+            {% else %}
+                <p>Aucune annonce disponible pour le moment.</p>
+            {% endfor %}
+        </div>
+
+
+
+        <a href="{{ path('user_ajouter_annonce2') }}" class="ajouter-produit"></a>
+    </div>
+</body>
+</html>

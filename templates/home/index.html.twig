@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrocTout</title>
+    <link rel="stylesheet" href="{{ asset('styles/index.css') }}">
+
+</head>
+<body>
+    <div class="background-icons">
+        <!-- Génération dynamique des icônes -->
+        <div class="icon" style="--x: 0.1; --speed: 10s;">🏠</div>
+        <div class="icon" style="--x: 0.2; --speed: 12s;">✈️</div>
+        <div class="icon" style="--x: 0.3; --speed: 15s;">👗</div>
+        <div class="icon" style="--x: 0.4; --speed: 8s;">📱</div>
+        <div class="icon" style="--x: 0.5; --speed: 14s;">💻</div>
+        <div class="icon" style="--x: 0.6; --speed: 13s;">📦</div>
+        <div class="icon" style="--x: 0.7; --speed: 11s;">👚</div>
+        <div class="icon" style="--x: 0.8; --speed: 9s;">👠</div>
+        <div class="icon" style="--x: 0.9; --speed: 16s;">🧳</div>
+        <div class="icon" style="--x: 1.0; --speed: 10s;">🎒</div>
+        <!-- Ajoutez plus d'icônes ici, jusqu'à 50 -->
+    </div>
+
+    <h1>TrocTout</h1>
+    <div class="card">
+        <div class="buttons">
+            <button class="btn-connexion">Connexion</button>
+            <button class="btn-inscription">Inscription</button>
+            <a href="{{ path('app_home') }}">
+                <button class="btn-continue">Continuer sans compte</button>
+            </a>
+        </div>
+
+        <!-- Affichage des flash messages -->
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger flash-message">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                    </svg>
+                </div>
+                <div class="message">{{ message }}</div>
+            </div>
+        {% endfor %}
+        <!-- Affichage des messages flash de succès -->
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success flash-message">
+                <!-- Icône coche verte -->
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="#2E7D32" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.59 14.42l-4.24-4.24 1.41-1.41 2.83 2.83 5.66-5.66 1.41 1.41-7.07 7.07z"/>
+                    </svg>
+                </div>
+                <!-- Texte du message -->
+                <div class="message">{{ message }}</div>
+            </div>
+        {% endfor %}
+
+        <!-- Formulaires -->
+        <div class="connexion-form" id="connexion-form">
+            <form method="POST" action="{{ path('user_login') }}">
+                <input type="email" name="mail" placeholder="Email" required />
+                <input type="password" name="mdp" placeholder="Mot de passe" required />
+                <button type="submit">Se connecter</button>
+            </form>
+        </div>
+
+        <div class="inscription-form" id="inscription-form">
+            <form method="POST" action="{{ path('user_create') }}">
+                <input type="text" name="nom" placeholder="Nom" required />
+                <input type="text" name="prenom" placeholder="Prénom" required />
+                <input type="email" name="mail" placeholder="Email" required />
+                <input type="password" name="mdp" placeholder="Mot de passe" required />
+                <input type="text" name="rue" placeholder="Rue" required />
+                <input type="text" name="cp" placeholder="Code postal" required />
+                <input type="text" name="ville" placeholder="Ville" required />
+                <select name="pays" required>
+                    <option value="">Sélectionner un pays</option>
+                    <option value="France">France</option>
+                    <option value="Belgique">Belgique</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Allemagne">Allemagne</option>
+                    <option value="Espagne">Espagne</option>
+                </select>
+                <button type="submit">S'inscrire</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        function hideFlashMessages() {
+            const flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach(message => {
+                message.style.display = 'none';
+            });
+        }
+        // Afficher/masquer le formulaire de connexion
+        document.querySelector(".btn-connexion").addEventListener("click", function() {
+            hideFlashMessages(); // Masquer les messages flash
+            const formInscription = document.getElementById("inscription-form");
+            const formConnexion = document.getElementById("connexion-form");
+            // Masquer le formulaire d'inscription et afficher celui de connexion
+            formInscription.style.display = "none";
+            formConnexion.style.display = formConnexion.style.display === "block" ? "none" : "block";
+        });
+
+        // Afficher/masquer le formulaire d'inscription
+        document.querySelector(".btn-inscription").addEventListener("click", function() {
+            hideFlashMessages(); // Masquer les messages flash
+            const formConnexion = document.getElementById("connexion-form");
+            const formInscription = document.getElementById("inscription-form");
+            // Masquer le formulaire de connexion et afficher celui d'inscription
+            formConnexion.style.display = "none";
+            formInscription.style.display = formInscription.style.display === "block" ? "none" : "block";
+        });
+    </script>
+</body>
+</html>

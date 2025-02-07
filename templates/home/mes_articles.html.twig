@@ -1,0 +1,91 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrocTout - Mes Annonces</title>
+    <link rel="stylesheet" href="{{ asset('styles/mes_articles.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ asset('/images/logo.png') }}" alt="Logo" class="logo">
+        <h1>TrocTout</h1>
+        <nav>
+            {% if app.session.get('user_prenom') %}
+                <!-- Si l'utilisateur est connecté, le bouton devient Accueil -->
+                <a href="{{ path('app_home') }}" class="mesannonces-btn">Accueil</a>
+            {% else %}
+                <!-- Si l'utilisateur n'est pas connecté, le bouton reste Mes annonces -->
+                <a href="{{ path('user_mes_annonces') }}" class="mesannonces-btn">Mes annonces</a>
+            {% endif %}
+            {% if app.session.get('user_prenom') %}
+                <a href="{{ path('user_logout') }}" class="deconnexion-btn">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_index') }}">Connexion/Inscription</a>
+            {% endif %}
+        </nav>
+    </header>
+
+
+    <div class="container">
+        <h2>
+            {% if app.session.get('user_prenom') %}
+                {{ app.session.get('user_prenom') }} Bienvenue sur TrocTout !
+            {% else %}
+                Bienvenue sur TrocTout !
+            {% endif %}
+        </h2>
+
+        <div class="mes-annonces">
+            {% for article in annoncesWithImages %}
+                <div class="produit">
+                    {% if article.images is not empty %}
+                        <div class="produit-images">
+                            {# Si plus d'une image, afficher un compteur des images restantes #}
+                            {% if article.images|length > 1 %}
+                                <div class="compteur-images">
+                                    <span>{{ article.images|length - 1 }} autre(s) photo(s)</span>
+                                </div>
+                            {% endif %}
+                            
+                            {# Affichage de la première image pour l'annonce #}
+                            <img src="{{ asset('uploads/images/' ~ article.images[0].chemin) }}" alt="{{ article.annonce.titre }}" class="produit-image" />
+
+                        </div>
+                    {% else %}
+                        <p>Aucune image disponible pour cette annonce.</p>
+                    {% endif %}
+                    
+                    <h3>{{ article.annonce.titre }}</h3>
+                    <p>Catégorie : {{ article.annonce.categorie.nom }}</p>
+                    <p>{{ article.annonce.description }}</p>
+                    <p>Prix : {{ article.annonce.prix }} €</p>
+                    <p>Localisation : {{ article.annonce.localisation }}</p>
+                    <p>Date d'ajout : {{ article.annonce.dateAjout|date('d/m/Y') }}</p>
+                    <p>Mise en ligne par : {{ article.annonce.ajouter.nom }} {{ article.annonce.ajouter.prenom }}</p>
+                    <a href="{{ path('user_modifier_annonce', {'id': article.annonce.id}) }}" class="btn btn-modifier">Modifier</a>
+                    <a href="{{ path('user_supprimer_annonce', {'id': article.annonce.id}) }}" class="btn btn-supprimer">Supprimer</a>
+                </div>
+            {% else %}
+                <p>Aucune annonce disponible pour le moment.</p>
+            {% endfor %}
+        </div>
+
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success flash-message">
+                 <!-- Icône coche verte -->
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="#2E7D32" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.59 14.42l-4.24-4.24 1.41-1.41 2.83 2.83 5.66-5.66 1.41 1.41-7.07 7.07z"/>
+                        <div class="message">{{ message }}</div>
+                    </svg>
+                </div>
+                <!-- Texte du message -->
+                
+            </div>
+        {% endfor %}
+
+       <a href="{{ path('user_ajouter_annonce2') }}" class="ajouter-produit">Mettre un produit en ligne</a>
+    </div>
+</body>
+</html>

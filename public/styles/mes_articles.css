@@ -1,0 +1,242 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+header nav {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+header nav a:hover {
+    background-color: #45a049;
+}
+
+.container {
+    padding: 20px;
+}
+
+.mes-annonces {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.produit {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.produit img {
+    width: 135px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.produit h3 {
+    margin: 5px 0 8px;
+    font-size: 1.2rem;
+}
+
+.produit p {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.produit a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.produit a:hover {
+    text-decoration: underline;
+}
+
+.ajouter-produit {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.ajouter-produit:hover {
+    background-color: #45a049;
+}
+
+.logo {
+    width: 50px;
+    /* Ajustez la taille du logo selon vos besoins */
+    height: 50px;
+    /* Assurez-vous que la largeur et la hauteur soient égales pour un cercle parfait */
+    border-radius: 50%;
+    object-fit: cover;
+    /* Garantit que l'image remplit le cercle sans déformation */
+    margin-right: 10px;
+    /* Espace entre l'image et le titre */
+}
+
+.deconnexion-btn {
+    background-color: rgb(255, 75, 75);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.deconnexion-btn:hover {
+    background-color: rgb(255, 4, 0);
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.mesannonces-btn {
+    background-color: rgb(255, 255, 255);
+    color: #45a049;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.mesannonces-btn:hover {
+    background-color: #45a049;
+    color: rgb(255, 255, 255);
+}
+
+/* Style général pour les boutons */
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    /* Texte blanc */
+    border-radius: 8px;
+    /* Coins arrondis */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+}
+
+.btn-modifier {
+    background-color: #007BFF;
+    /* Bleu */
+    border: 1px solid #0056b3;
+}
+
+.btn-supprimer {
+    background-color: #FF4136;
+    /* Rouge */
+    border: 1px solid #c73228;
+}
+
+
+.btn-modifier:hover {
+    background-color: #0056b3;
+    /* Bleu foncé au survol */
+    transform: scale(1.05);
+}
+
+
+
+.btn-supprimer:hover {
+    background-color: #c73228;
+    /* Rouge foncé au survol */
+    transform: scale(1.05);
+}
+
+.alert-success {
+    color: rgb(48, 120, 65);
+    background-color: rgb(163, 248, 170);
+    /* Vert clair */
+    border: 1px solid #2E7D32;
+    /* Bordure vert foncé */
+    padding: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 1rem 0;
+}
+
+.alert-success .icon {
+    margin-right: 1rem;
+    /* Augmente l'espacement entre l'icône et le texte */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    /* Empêche l'icône de rétrécir */
+}
+
+.alert-success .icon svg {
+    fill: #155724;
+    width: 24px;
+    height: 24px;
+}
+
+.compteur-images {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.produit-images {
+    position: relative;
+}

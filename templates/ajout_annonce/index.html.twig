@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ajouter Annonce{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    <link rel="stylesheet" href="{{ asset('styles/modifier_annonce.css') }}">
+    <style>
+        .localisation-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .localisation-container button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ asset('/images/logo.png') }}" alt="Logo" class="logo">
+        <h1>TrocTout</h1>
+        <nav>
+            {% if app.session.get('user_prenom') %}
+                <a href="{{ path('user_mes_articles') }}" class="mesannonces-btn">Mes Annonces</a>
+                <a href="{{ path('user_logout') }}" class="deconnexion-btn">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_index') }}">Connexion/Inscription</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="form-container">
+
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_row(form.titre) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.description) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.prix) }}
+        </div>
+        <div class="form-group localisation-container">
+            {{ form_row(form.localisation) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.statut) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.categorie) }}
+        </div>
+        <div class="images-container">
+            {{ form_row(form.image) }}
+        </div>
+        {{ form_row(form.submit) }}
+
+
+        {{ form_end(form) }}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,321 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+#image-upload-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.images-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+
+
+.delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: white;
+    color: rgb(255, 255, 255);
+    border: 2px solid red;
+    /* Bordure rouge */
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    /* Forme ronde */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: red;
+    /* Fond rouge au survol */
+    color: white;
+    /* Texte en blanc au survol */
+}
+
+
+
+#image-upload-container button {
+    border: 2px dashed #007bff;
+    background-color: transparent;
+    color: #007bff;
+    font-size: 30px;
+    padding: 35px;
+    /* Taille du bouton égale à celle de l'image */
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    width: 100px;
+    /* Taille du bouton égale à celle de l'image */
+    height: 100px;
+    /* Taille du bouton égale à celle de l'image */
+}
+
+#image-upload-container button:hover {
+    background-color: #f0f8ff;
+}
+
+#image-modification-form {
+    display: none;
+    margin-top: 20px;
+}
+
+button[type="button"] {
+    margin-top: 10px;
+}
+
+button[type="button"] {
+    margin-top: 10px;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+header nav {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+/* Style des boutons d'édition et de suppression sur l'image */
+.images-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+
+
+.thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.images-container {
+    position: relative;
+}
+
+
+.delete-btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.delete-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.delete-btn,
+.add-btn {
+    border: none;
+    background-color: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.add-new-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px dashed #ccc;
+    height: 100px;
+    width: 100px;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+header nav a:hover {
+    background-color: #45a049;
+}
+
+.logo {
+    width: 50px;
+    /* Ajustez la taille du logo selon vos besoins */
+    height: 50px;
+    /* Assurez-vous que la largeur et la hauteur soient égales pour un cercle parfait */
+    border-radius: 50%;
+    object-fit: cover;
+    /* Garantit que l'image remplit le cercle sans déformation */
+    margin-right: 10px;
+    /* Espace entre l'image et le titre */
+}
+
+header nav a:hover {
+    background-color: #45a049;
+}
+
+.container {
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.btn-primary {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #388E3C;
+}
+
+.mesannonces-btn {
+    background-color: rgb(255, 255, 255);
+    color: #45a049;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.mesannonces-btn:hover {
+    background-color: #45a049;
+    color: rgb(255, 255, 255);
+}
+
+.deconnexion-btn {
+    background-color: rgb(255, 75, 75);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.deconnexion-btn:hover {
+    background-color: rgb(255, 4, 0);
+}
+
+.images-container {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.image-item {
+    position: relative;
+    flex: 0 0 auto;
+    margin: 5px;
+    transition: transform 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+
+.image-item:hover {
+    display: block;
+    background-color: #f0f0f0;
+}
+
+#image-modification-form {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.edit-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
+}

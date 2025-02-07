@@ -1,0 +1,211 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: black;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 700px;
+    overflow-y: auto; /* Permet de faire défiler le contenu si nécessaire */
+    overflow-x: hidden;
+    max-height: 90vh;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.buttons button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-connexion {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-connexion:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.btn-inscription {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-inscription:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.btn-continue {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+.btn-continue:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+/* Formulaire caché */
+.inscription-form, .connexion-form {
+    display: none; /* Cacher les formulaires par défaut */
+    margin-top: 2rem;
+}
+
+.inscription-form input,
+.inscription-form select,
+.connexion-form input {
+    padding: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.inscription-form button,
+.connexion-form button {
+    background-color: #28a745;
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.inscription-form button:hover,
+.connexion-form button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+/* Conteneur des icônes */
+.background-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Empêche les icônes de sortir de l'écran */
+    z-index: -1; /* Placer le fond derrière le contenu principal */
+}
+
+/* Styles pour chaque icône */
+.icon {
+    position: absolute;
+    font-size: 3rem; /* Taille des icônes */
+    color: rgba(0, 0, 0, 0.1); /* Couleur gris clair */
+    animation: float var(--speed) linear infinite, move var(--speed) linear infinite;
+}
+
+/* Animation de mouvement vertical et horizontal */
+@keyframes move {
+    0% {
+        transform: translateY(100vh) translateX(calc(100vw * var(--x)));
+    }
+    100% {
+        transform: translateY(-10vh) translateX(calc(100vw * var(--x)));
+    }
+}
+
+/* Animation de flottement (mouvement lent) */
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(calc(100vw * var(--x))) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-10vh) translateX(calc(100vw * var(--x))) rotate(360deg);
+    }
+}
+
+
+
+.alert-danger {
+    display: flex;
+    align-items: center;
+    background-color: #f8d7da; /* Rouge pâle */
+    color: #721c24; /* Rouge foncé pour le texte */
+    border: 1px solid #f5c6cb;
+    padding: 1rem;
+    border-radius: 5px;
+    margin: 1rem 0;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.alert-danger .icon {
+    margin-right: 1rem; /* Augmente l'espacement entre l'icône et le texte */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* Empêche l'icône de rétrécir */
+}
+
+.alert-danger .icon svg {
+    width: 24px;
+    height: 24px;
+    fill: #721c24; /* Rouge foncé */
+}
+
+.alert-danger .message {
+    flex: 1; /* Le texte occupe l'espace restant */
+    word-wrap: break-word; /* Évite les débordements de texte */
+}
+.alert-success {
+    color:rgb(48, 120, 65);
+    background-color:rgb(163, 248, 170); /* Vert clair */
+    border: 1px solid #2E7D32; /* Bordure vert foncé */
+    padding: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 1rem 0;
+}
+.alert-success .icon {
+    margin-right: 1rem; /* Augmente l'espacement entre l'icône et le texte */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* Empêche l'icône de rétrécir */
+}
+
+.alert-success .icon svg {
+    fill: #155724;
+    width: 24px;
+    height: 24px;
+}
+

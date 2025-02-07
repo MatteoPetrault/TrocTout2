@@ -1,0 +1,222 @@
+<!DOCTYPE html> 
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Modifier Annonce{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    <link rel="stylesheet" href="{{ asset('styles/modifier_annonce.css') }}">
+    <style>
+        .localisation-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .localisation-container button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="{{ asset('/images/logo.png') }}" alt="Logo" class="logo">
+        <h1>TrocTout</h1>
+        <nav>
+            {% if app.session.get('user_prenom') %}
+                <a href="{{ path('user_mes_articles') }}" class="mesannonces-btn">Mes Annonces</a>
+                <a href="{{ path('user_logout') }}" class="deconnexion-btn">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_index') }}">Connexion/Inscription</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="form-container">
+            {{ form_start(form) }}
+
+            <div class="form-group">
+                {{ form_widget(form.titre) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.description) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.prix) }}
+            </div>
+            <div class="form-group localisation-container">
+                {{ form_widget(form.localisation) }}
+                <button type="button" id="localiser-btn" onclick="localiserAppareil()">Localiser mon appareil</button>
+                <p id="adresse"></p>
+            </div>
+
+            <!-- Conteneur des images avec vignettes -->
+            <div class="images-container">
+                {% if annonce.images is empty %}
+                    <p>Aucune image. Ajoutez une image ci-dessous.</p>
+                {% else %}
+                    {% for image in annonce.images %}
+                        <div class="image-item" id="image-{{ image.id }}">
+                            <img src="{{ asset('uploads/images/' ~ image.chemin) }}" alt="Image" class="thumbnail" id="current-image-{{ image.id }}">
+                            <a href="{{ path('user_supprimer_image', { id: image.id }) }}"
+                            class="delete-btn"
+                            onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette image ?');">❌</a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <div id="image-upload-container">
+                    <button type="button" class="delete-btn" onclick="addImage(event)">
+                        +
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Formulaire de modification d'image -->
+            <div id="image-modification-form">
+                <label for="image-upload">Upload une image :</label>
+                <input type="file" id="image-upload" name="image_upload" accept="image/*" onchange="previewImage(event)">
+                <input type="hidden" id="annonce-id" value="{{ annonce.id }}">
+                <button type="button" onclick="saveImage()">Enregistrer</button>
+                <button type="button" onclick="cancelChanges()">Annuler</button>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <script>
+        let currentImageId = null;
+        let originalImageSrc = "";
+
+        // Fonction pour afficher le formulaire d'ajout d'image
+        function addImage(event) {
+            event.stopPropagation();
+            document.getElementById('image-modification-form').style.display = 'block';
+            currentImageId = null;
+            originalImageSrc = "";
+        }
+
+        // Fonction pour prévisualiser l'image téléchargée
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    if (currentImageId) {
+                        const image = document.getElementById('current-image-' + currentImageId);
+                        if (image) {
+                            image.src = e.target.result;
+                        }
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Fonction pour sauvegarder l'image ajoutée
+        function saveImage() {
+            const formData = new FormData();
+            const fileInput = document.getElementById('image-upload');
+
+            if (fileInput.files.length > 0) {
+                formData.append('image_upload', fileInput.files[0]);
+                formData.append('annonce_id', document.getElementById('annonce-id').value);
+                formData.append('')
+
+                // Envoyer la requête AJAX pour enregistrer l'image
+                fetch('/save-image', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Image ajoutée avec succès.');
+
+                        // Ajouter la nouvelle image à la vue
+                        const imageContainer = document.querySelector('.images-container');
+                        const newImageDiv = document.createElement('div');
+                        newImageDiv.classList.add('image-item');
+                        newImageDiv.innerHTML = `
+                            <img src="{{ asset('images/') }}/${data.image_url}" alt="Image" class="thumbnail">
+                            <a href="/delete-image/${data.image_url}" class="delete-btn" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette image ?');">❌</a>
+                        `;
+                        imageContainer.appendChild(newImageDiv);
+
+                        cancelChanges();
+                    } else {
+                        alert('Erreur lors de l\'ajout de l\'image : ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Erreur serveur : ' + error);
+                });
+            }
+        }
+
+        // Fonction pour annuler les modifications et cacher le formulaire
+        function cancelChanges() {
+            document.getElementById('image-modification-form').style.display = 'none';
+        }
+
+        // Fonction pour supprimer l'image avant l'enregistrement
+        function deleteImagePreview(imageDiv) {
+            const imageContainer = document.querySelector('.images-container');
+            imageContainer.removeChild(imageDiv);
+        }
+
+        function localiserAppareil() {
+            const adresseElement = document.getElementById("adresse");
+            const localisationInput = document.getElementById("form_localisation"); // ID généré par Symfony pour le champ
+
+            adresseElement.textContent = "Localisation en cours...";
+
+            // Vérification si la géolocalisation est supportée
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        // Utiliser un service de géocodage pour obtenir l'adresse
+                        const apiKey = "d34de350f8e84682986a23ad492a5b33"; // Remplacez par votre clé API
+                        const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
+
+                        fetch(url)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.results.length > 0) {
+                                    const adresse = data.results[0].formatted;
+                                    adresseElement.textContent = `Adresse : ${adresse}`;
+
+                                    // Insérer l'adresse dans le champ de formulaire
+                                    if (localisationInput) {
+                                        localisationInput.value = adresse; // Met l'adresse dans le champ
+                                    }
+                                } else {
+                                    adresseElement.textContent = "Impossible de récupérer l'adresse.";
+                                }
+                            })
+                            .catch(error => {
+                                adresseElement.textContent = "Erreur lors de la récupération de l'adresse.";
+                                console.error(error);
+                            });
+                    },
+                    error => {
+                        adresseElement.textContent = "Erreur lors de la localisation.";
+                        console.error(error);
+                    }
+                );
+            } else {
+                adresseElement.textContent = "La géolocalisation n'est pas supportée par votre navigateur.";
+            }
+        }
+
+    </script>
+</body>
+</html>

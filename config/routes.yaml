@@ -1,0 +1,17 @@
+controllers:
+    resource: ../src/Controller/
+    type: attribute
+
+homepage:
+    path: /
+    controller: App\Controller\HomeController::index
+app_home:
+    path: /accueil
+    controller: App\Controller\HomeController::accueil
+app_index:
+    path: /index
+    controller: App\Controller\HomeController::index
+user_mes_annonces:
+    path: /mes-annonces
+    controller: App\Controller\UserController::mesAnnonces
+
